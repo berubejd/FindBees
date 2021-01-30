@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>The Hat - Index</title>
+    <title>Bees! - Index</title>
 </head>
 
 <body class="text-center">
@@ -35,14 +35,15 @@
         <div class="query row justify-content-end">
             <div class="col-md-4 mr-3 mb-4">
                 <form action="" method="post">
-                    <input class="form-control form-control-lg text-center mb-2 {% if error %}is-invalid{% endif %}"
-                        type="text" id="name" name="petitioner" placeholder="Please enter your name to continue."
-                        minlength="3" maxlenght="20" required>
                     {% if error %}
-                    <div class="invalid-feedback">
+                    <div id="error-feedback">
                         Please choose a valid user.
                     </div>
                     {% endif %}
+                    <input class="form-control form-control-lg text-center mb-2 {% if error %}is-invalid{% endif %}"
+                        type="text" id="name" name="petitioner" placeholder="Please enter your name to continue."
+                        minlength="3" maxlenght="20" required>
+
                     <button type="submit" class="btn btn-danger btn-block"><span id="find">Find your
                             bee!</span></button>
                 </form>
