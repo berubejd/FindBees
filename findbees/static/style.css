@@ -1,0 +1,40 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    background: url("https://compass-ssl.xbox.com/assets/34/bb/34bb1efc-0142-4ef3-bb04-c15c8439937e.jpg?n=Minecraft_Sneaky-Slider-1084_Buzzy-Bees_1600x675.jpg") no-repeat center;
+    background-size: cover;
+    font-family: 'VT323';
+    font-size: 1.25em;
+    color: ghostwhite;
+}
+
+.header {
+    height: 10vh;
+}
+
+.characters {
+    height: 65vh;
+}
+
+.name {
+    font-size: 56px;
+    transform: translate(-5vh, -10vh) rotate(-20deg);
+}
+
+.query {
+    height: 15vh;
+}
+
+#find {
+    font-size: 20px;
+}
