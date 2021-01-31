@@ -5,12 +5,12 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="Description" content="Match up people weekly for team building exercises.">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Bees! - Index</title>
@@ -43,7 +43,7 @@
                     <input class="form-control form-control-lg text-center mb-2 {% if error %}is-invalid{% endif %}"
                         type="text" id="name" name="petitioner" placeholder="Please enter your name to continue."
                         minlength="3" maxlenght="20" required>
-
+                    <label for="name" class="hidden">Please enter your name to continue.</label>
                     <button type="submit" class="btn btn-danger btn-block"><span id="find">Find your
                             bee!</span></button>
                 </form>
