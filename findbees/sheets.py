@@ -80,6 +80,9 @@ def calculate_dates() -> Tuple[str, str]:
 
 
 def get_or_assign_pick(worksheet: Worksheet, name: str) -> Optional[str]:
+    # Ensure the worksheet is in sync with the Google Sheet
+    worksheet.refresh()
+    
     # Request dates
     monday_current, monday_last = calculate_dates()
 
