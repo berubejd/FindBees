@@ -1,13 +1,16 @@
-from datetime import timedelta
-from flask import Flask, render_template, redirect, request, session, abort
+import os
+
+from config import Config
+from flask import Flask, abort, redirect, render_template, request, session
 from flask.helpers import url_for
-from sheets import Worksheet, get_or_assign_pick
+
+from .sheets import Worksheet, get_or_assign_pick
+
 
 app = Flask(__name__)
-app.secret_key = "There once was a man..."
-app.permanent_session_lifetime = timedelta(minutes=5)
+app.config.from_object(Config)
 
-worksheet = Worksheet("The Hat")
+worksheet = Worksheet(os.getenv("WORKSHEET_NAME"))
 
 
 @app.before_request
@@ -42,7 +45,3 @@ def select():
         session["assignee"] = get_or_assign_pick(worksheet, petitioner)
 
     return redirect(url_for("index"))
-
-
-if __name__ == "__main__":
-    app.run(debug=True)

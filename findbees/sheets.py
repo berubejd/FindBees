@@ -1,12 +1,17 @@
+import os
+import random
 from datetime import date, timedelta
 from typing import Optional, Tuple
+
 import gspread
-import random
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class Worksheet:
     def __init__(
-        self, sheet_name: str, secrets_file: str = "service_account.json"
+        self, sheet_name: str, secrets_file: str = os.getenv("WORKSHEET_SECRETS_FILE")
     ) -> None:
         # Setup auth for Sheets
         self.gc = gspread.service_account(secrets_file)
@@ -82,7 +87,7 @@ def calculate_dates() -> Tuple[str, str]:
 def get_or_assign_pick(worksheet: Worksheet, name: str) -> Optional[str]:
     # Ensure the worksheet is in sync with the Google Sheet
     worksheet.refresh()
-    
+
     # Request dates
     monday_current, monday_last = calculate_dates()
 
@@ -115,7 +120,7 @@ def get_or_assign_pick(worksheet: Worksheet, name: str) -> Optional[str]:
                     # Choose new name to assign
                     excludes: list[str] = [cell["Name"]]
 
-                    if not cell.get(monday_last) == "":
+                    if cell.get(monday_last) and not cell.get(monday_last) == "":
                         excludes.append(cell[monday_last])
 
                     all_assigned = saved_assignments + new_assignments
@@ -144,48 +149,8 @@ def get_or_assign_pick(worksheet: Worksheet, name: str) -> Optional[str]:
     return new_assignments[worksheet.names.index(name)]
 
 
-# def get_or_assign_pick(worksheet: Worksheet, name: str) -> Optional[str]:
-#     # Request dates
-#     monday_current, monday_last = calculate_dates()
-
-#     # Ensure current week is in headers
-#     if not monday_current in worksheet.headers:
-#         worksheet.add_header(monday_current)
-
-#     # Get user information
-#     user_row = worksheet.find_row_by_name(name)
-#     if not user_row:
-#         return None
-
-#     # If assigned already exists then return it directly
-#     if not user_row.get(monday_current) == "":
-#         return user_row[monday_current]
-
-#     # Choose new name to assign
-#     excludes = [name]
-
-#     if not user_row.get(monday_last) == "":
-#         excludes.append(user_row[monday_last])
-
-#     assigned = {
-#         cell[monday_current]
-#         for cell in worksheet.cells
-#         if not cell[monday_current] == ""
-#     }
-#     assigned.update(excludes)
-
-#     new_name: str = random.choice(
-#         [name for name in worksheet.names if name not in assigned]
-#     )
-
-#     # Find target cell and update worksheet
-#     worksheet.update_cell(name, monday_current, new_name)
-
-#     return new_name
-
-
 def main() -> None:
-    worksheet = Worksheet("The Hat")
+    worksheet = Worksheet(os.getenv("WORKSHEET_NAME"))
 
     print(get_or_assign_pick(worksheet, "Todd"))
 

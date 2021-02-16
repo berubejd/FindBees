@@ -16,9 +16,18 @@ The simple layout utilizes [Bootstrap 4](https://getbootstrap.com/).
 
 ## Configuration
 
-At a minimum, you will probably want to set:
+The configuration for this application can be done through a .env file.  An example of that file is included.  At a minimum you will need to update:
 
-- FLASK_APP = name (This should match what the 'application' directory is renamed to.)
-- FLASK_ENV = development (If you would like the app to provide log output and autoreload.)
+- SECRET_KEY
+- WORKSHEET_NAME
+- WORKSHEET_SECRETS_FILE
 
 In order to access Google Spreadsheets you will need to provide an appropriate service_account.json file.  Directions can be found [here](https://gspread.readthedocs.io/en/latest/oauth2.html#for-bots-using-service-account).
+
+The initial spreadsheet will require a single column with a header labeled 'Name' and the list of users below in column 1:
+
+|Name|
+|---|
+|John|
+|Mary|
+|...|
